@@ -1,1 +1,1 @@
-"# Fitness Platform Dashboard" 
+# Fitness Platform Dashboard

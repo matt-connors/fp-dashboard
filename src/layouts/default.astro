@@ -1,0 +1,125 @@
+---
+import Sidenav from "../components/astro/Sidenav.astro";
+import Header from "../components/astro/Header.astro";
+import Notifications from "../components/astro/Notifications.astro";
+import BaseHead from "../components/astro/BaseHead.astro";
+
+const { title, description } = Astro.props;
+---
+
+<html lang="en">
+    <head>
+        <BaseHead title={title} description={description} />
+    </head>
+    <body>
+        <slot />
+    </body>
+</html>
+
+<style>
+    #app {
+        display: grid;
+        grid-template-areas:
+            "sidenav header header"
+            "sidenav main aside";
+        grid-template-columns: calc(280px - var(--spacing-2) * 2) 1fr 280px;
+        grid-template-rows: 65px 1fr;
+        height: 100vh;
+        box-sizing: border-box;
+
+        gap: 0 var(--spacing-2);
+        padding: 0 var(--spacing-2);
+    }
+    main {
+        grid-area: main;
+        background-color: var(--color-background-1);
+        border-top-left-radius: var(--border-radius-1);
+        border-top-right-radius: var(--border-radius-1);
+    }
+</style>
+
+<style is:global>
+    /**
+     * Fonts
+     */
+    @font-face {
+        font-family: "Switzer";
+        src: url("/fonts/Switzer-Variable.woff2") format("woff2"),
+            url("/fonts/Switzer-Variable.woff") format("woff");
+        font-weight: 100 900;
+        font-style: normal;
+    }
+    /*
+     * Reset Styles
+     */
+    ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+    a {
+        text-decoration: none;
+        color: inherit;
+    }
+    button {
+        cursor: pointer;
+        font: inherit;
+        border: none;
+        background: none;
+        color: inherit;
+        padding: 0;
+    }
+    h1, h2, h3, h4, h5, h6 {
+        margin: 0;
+        font-weight: inherit;
+    }
+    img {
+        max-width: 100%;
+    }
+    p {
+        margin: 0;
+    }
+    input {
+        font: inherit;
+    }
+    /**
+     * Global Styles
+     */
+    :root {
+        --color-background-4: #dbe4e9;
+        --color-background-3: #e5ebee;
+        --color-background-2: #f6f8f9;
+        --color-background-1: #ffffff;
+
+        --bold-font-weight: 530;
+
+        --color-border: #dce2e6;
+
+        --color-text-3: #989da0;
+        --color-text-2: #666D80;
+        --color-text-1: #1C1C1C;
+
+        --spacing-1: 14px;
+        --spacing-2: 18px;
+
+        --border-radius-1: 16px;
+        --border-radius-2: 10px;
+    }
+    body {
+        margin: 0;
+        font: 430 16px/1 "Switzer", sans-serif;
+        background-color: var(--color-background-2);
+        color: var(--color-text-1);
+    }
+    /**
+     * Common classes
+     */
+
+    .button-primary {
+        padding: 14px 18px;
+        border-radius: var(--border-radius-2);
+        box-sizing: border-box;
+        background-color: var(--color-text-1);
+        color: var(--color-background-1);
+    }
+</style>

@@ -1,0 +1,148 @@
+---
+import GoogleButton from "../components/astro/GoogleButton.astro";
+import DefaultLayout from "../layouts/default.astro";
+
+const title = "Login";
+const description = "";
+---
+
+<DefaultLayout title={title} description={description}>
+    <aside id="background">
+        <video autoplay muted playsinline loop>
+            <source src="./video/stock-bench-press.mp4" type="video/mp4" />
+        </video>
+    </aside>
+    <main>
+        <section>
+            <h1>Sign in</h1>
+            <form>
+                <GoogleButton />
+                <fieldset>
+                    <legend>OR</legend>
+                    <label>
+                        <span>Email</span>
+                        <input
+                            type="email"
+                            name="email"
+                            required
+                            placeholder="Enter your email"
+                        />
+                    </label>
+                    <label>
+                        <span>Password</span>
+                        <input
+                            type="password"
+                            name="password"
+                            required
+                            placeholder="Enter your password"
+                        />
+                    </label>
+                </fieldset>
+                <button class="button-primary">Login</button>
+            </form>
+            <p id="other">
+                Don't have an account? <a href="/signup">Register</a>
+            </p>
+        </section>
+    </main>
+</DefaultLayout>
+
+<script>
+    import { signInExistingUser } from "../lib/supabase/auth";
+    const form = document.querySelector("form") as HTMLFormElement;
+    form.addEventListener("submit", (e: any) => {
+        e.preventDefault();
+        const formData = new FormData(form);
+        const email = formData.get("email") as string;
+        const password = formData.get("password") as string;
+        signInExistingUser(email, password);
+    });
+</script>
+
+<style>
+    #background {
+        position: fixed;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        z-index: -1;
+    }
+    #background video {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    main {
+        width: 100%;
+        height: 100vh;
+        backdrop-filter: blur(10px) brightness(0.5);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    main section {
+        display: flex;
+        flex-direction: column;
+        /* gap: 2rem; */
+        background-color: var(--color-background-1);
+        border-radius: var(--border-radius-1);
+        padding: 4rem;
+        width: min(350px, 100%);
+    }
+
+    h1 {
+        margin-bottom: 2rem;
+    }
+
+    fieldset {
+        border: none;
+        border-top: 1px solid var(--color-border);
+        margin: 2rem 0 0;
+        padding: 2rem 0 0;
+    }
+    fieldset legend {
+        padding: 0 10px;
+        text-align: center;
+        color: var(--color-text-2);
+    }
+    label {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        margin-bottom: 1.5rem;
+    }
+    input[type="email"],
+    input[type="password"] {
+        padding: var(--border-radius-2) 14px;
+        border: 1px solid var(--color-border);
+        border-radius: var(--border-radius-2);
+        width: 100%;
+        box-sizing: border-box;
+    }
+    input::placeholder {
+        color: var(--color-text-3);
+    }
+    label small {
+        color: var(--color-text-2);
+    }
+    label span {
+        font-weight: 530;
+    }
+    .button-primary {
+        width: 100%;
+        margin-top: 1rem;
+    }
+    #other {
+        margin-top: 1.5rem;
+        text-align: center;
+        color: var(--color-text-2);
+    }
+    #other a {
+        text-decoration: underline;
+        /* color: var(--color-text-1); */
+    }
+</style>

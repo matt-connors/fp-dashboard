@@ -1,0 +1,79 @@
+---
+import DashboardIcon from "../icons/dashboard.tsx";
+import BusinessIcon from "../icons/business.tsx";
+import MessagesIcon from "../icons/messages.tsx";
+
+// import BusinessDropdown from "../react/BusinessDropdown.tsx";
+
+import clsx from "clsx";
+
+const siteUrl = Astro.site;
+const pageUrl = Astro.request.url;
+
+const pages = [
+    {
+        name: "Dashboard",
+        url: `${siteUrl}`,
+        icon: DashboardIcon,
+    },
+    {
+        name: "My Business",
+        url: `${siteUrl}business`,
+        icon: BusinessIcon,
+    },
+    {
+        name: "Messages",
+        url: `${siteUrl}messages`,
+        icon: MessagesIcon,
+    },
+];
+---
+
+<aside>
+    <div class="aside-header">
+        <!-- Logo  -->
+        <a href={siteUrl}>
+            <img src={`${siteUrl}images/logo.png`} alt="Logo" />
+        </a>
+    </div>
+    <!-- Project Selector Dropdown -->
+    <!-- <BusinessDropdown /> -->
+    <!-- Side menu buttons -->
+    <ul>
+        { 
+            pages.map(page => (
+                <li>
+                    <a href={page.url} class={clsx(
+                        pageUrl === page.url ? "selected" : ""
+                    )}>
+                        <page.icon />
+                        <span>{page.name}</span>
+                    </a>
+                </li>
+            ))
+        }
+    </ul>
+</aside>
+
+<style is:global>
+    aside {
+        grid-area: sidenav;
+    }
+    .aside-header {
+        height: 65px; /* same as the grid-template-rows height defined in default.astro for the header height */
+        display: flex;
+        align-items: center;
+    }
+    ul a.selected {
+        background-color: var(--color-background-3);
+        --fill: var(--color-text-1);
+        --stroke: none;
+    }
+    ul a {
+        display: flex;
+        align-items: center;
+        padding: 12px var(--spacing-1);
+        gap: var(--spacing-1);
+        border-radius: var(--border-radius-2);
+    }
+</style>

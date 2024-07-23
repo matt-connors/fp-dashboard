@@ -1,0 +1,39 @@
+<button type="button">
+    <img src="./images/Google__G__logo.svg" alt="Google logo" />
+    <span>Sign in with Google</span>
+</button>
+
+<style>
+    button {
+        padding: 11px 15px;
+        background-color: var(--color-background-2);
+        /* border: 1px solid var(--color-border); */
+        border-radius: var(--border-radius-2);
+        width: 100%;
+        box-sizing: border-box;
+        color: var(--color-text-1);
+        box-sizing: border-box;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        text-align: center;
+    }
+    button:active {
+        background-color: var(--color-background-3);
+    }
+</style>
+
+<script>
+    import { SupabaseClient } from "@supabase/supabase-js";
+    const supabase = new SupabaseClient(
+        import.meta.env.PUBLIC_SUPABASE_URL,
+        import.meta.env.PUBLIC_SUPABASE_KEY,
+    );
+    const button = document.querySelector("button") as HTMLButtonElement;
+    button.addEventListener("click", () => {
+        supabase.auth.signInWithOAuth({
+            provider: "google",
+        });
+    });
+</script>
