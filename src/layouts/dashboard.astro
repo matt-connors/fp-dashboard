@@ -1,7 +1,6 @@
 ---
 import Sidenav from "../components/astro/Sidenav.astro";
 import Header from "../components/astro/Header.astro";
-import Notifications from "../components/astro/Notifications.astro";
 import BaseHead from "../components/astro/BaseHead.astro";
 
 import DefaultLayout from "./default.astro";
@@ -16,7 +15,6 @@ const { title, description } = Astro.props;
         <main>
             <slot />
         </main>
-        <Notifications />
     </div>
     <!-- Error messages -->
     <dialog id="errorOverlay">
@@ -28,9 +26,9 @@ const { title, description } = Astro.props;
     #app {
         display: grid;
         grid-template-areas:
-            "sidenav header header"
-            "sidenav main aside";
-        grid-template-columns: calc(280px - var(--spacing-2) * 2) 1fr 280px;
+            "sidenav header"
+            "sidenav main";
+        grid-template-columns: calc(280px - var(--spacing-2) * 2) 1fr;
         grid-template-rows: 65px 1fr;
         height: 100vh;
         box-sizing: border-box;

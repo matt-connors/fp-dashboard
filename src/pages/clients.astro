@@ -1,0 +1,17 @@
+---
+import DashboardLayout from '../layouts/dashboard.astro';
+import Provider from '../components/react/Provider';
+import Test from '../components/react/Test';
+
+const title = 'Clients';
+const description = 'A list of clients';
+
+---
+
+<DashboardLayout title={title} description={description}>
+    <Provider>
+        <Test client:only="react" />
+    </Provider>
+</DefaultLayout>
+
+

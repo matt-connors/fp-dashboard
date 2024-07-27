@@ -16,9 +16,10 @@ export async function signUpNewUser(email: string, password: string) {
         email,
         password,
         options: {
-            emailRedirectTo: import.meta.env.SITE
+            // emailRedirectTo: import.meta.env.SITE
         },
     });
+    console.log(data, error);
 }
 
 /**
@@ -30,4 +31,11 @@ export async function signInExistingUser(email: string, password: string) {
         password,
     });
     console.log(data, error);
+}
+
+/**
+ * Sign out the current user
+ */
+export async function signOut() {
+    const { error } = await supabase.auth.signOut()
 }

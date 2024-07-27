@@ -16,7 +16,7 @@ const description = "";
         <section>
             <h1>Sign up</h1>
             <GoogleButton />
-            <form>
+            <form action="/signup" method="POST">
                 <fieldset>
                     <legend>OR</legend>
                     <label>
@@ -26,6 +26,7 @@ const description = "";
                             name="email"
                             required
                             placeholder="Enter your email"
+                            autocomplete="email"
                         />
                     </label>
                     <label>
@@ -35,6 +36,7 @@ const description = "";
                             name="password"
                             required
                             placeholder="Create a password"
+                            autocomplete="new-password"
                         />
                         <small>Must be at least 8 characters.</small>
                     </label>
@@ -44,11 +46,20 @@ const description = "";
                     Already have an account? <a href="/login">Login</a>
                 </p>
             </form>
+            <!-- <button id="x">signout</button> -->
         </section>
     </main>
 </DefaultLayout>
 
-<script>
+<!-- <script>
+    import { signOut } from "../lib/supabase/auth";
+    const x = document.getElementById("x") as HTMLButtonElement;
+    x.addEventListener("click", () => {
+        signOut();
+    });
+</script> -->
+
+<!-- <script>
     import { signUpNewUser } from "../lib/supabase/auth";
     const form = document.querySelector("form") as HTMLFormElement;
     form.addEventListener("submit", (e: any) => {
@@ -58,7 +69,7 @@ const description = "";
         const password = formData.get("password") as string;
         signUpNewUser(email, password);
     });
-</script>
+</script> -->
 
 <style>
     #background {
@@ -145,5 +156,11 @@ const description = "";
     #other a {
         text-decoration: underline;
         /* color: var(--color-text-1); */
+    }
+    input:-webkit-autofill,
+    input:-webkit-autofill:hover,
+    input:-webkit-autofill:focus,
+    input:-webkit-autofill:active {
+        -webkit-box-shadow: 0 0 0 30px white inset !important;
     }
 </style>

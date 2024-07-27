@@ -1,0 +1,12 @@
+# codegen.yml
+
+schema: http://127.0.0.1:8787/graphql # Note that this is the non-authenticated endpoint
+documents: "./src/**/*.graphql"
+generates:
+  ./src/graphql/generated.ts:
+    plugins:
+      - typescript
+      - typescript-operations
+      - typed-document-node
+    config:
+      useTypeImports: true

@@ -1,0 +1,8 @@
+# src/graphql/users.query.graphql
+
+query getUser($userId:String!) {
+  user (userId: $userId) {
+    email,
+    id
+  }
+}
