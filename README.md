@@ -7,3 +7,6 @@ Update the graphql schema:\
 
 Find circular dependencies:\
 ```npx madge ./ --extensions ts,tsx,js,jsx --circular --dot | dot -Tpng > circular-dependencies.png```
+
+Regenerate the tailwindcss file:\
+```npx tailwindcss -i ./src/styles/index.css -o ./src/styles/output.css --watch```
