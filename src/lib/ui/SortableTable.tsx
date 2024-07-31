@@ -41,7 +41,7 @@ import clsx from "clsx"
 
 
 
-export function SortableTable({ data, columns, hiddenColumns = [] }: { data: any[], columns: any[], hiddenColumns?: string[] }) {
+export function SortableTable({ data, columns, hiddenColumns = [], filter }: { data: any[], columns: any[], hiddenColumns?: string[], filter: { title: string, columnName: string } }) {
     const [sorting, setSorting] = React.useState<SortingState>([])
     const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([])
     const [columnVisibility, setColumnVisibility] =
@@ -71,10 +71,10 @@ export function SortableTable({ data, columns, hiddenColumns = [] }: { data: any
         <div className="w-full">
             <div className="flex items-center py-4">
                 <Input
-                    placeholder="Filter names..."
-                    value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
+                    placeholder={`Filter ${filter.title}...`}
+                    value={(table.getColumn(filter.columnName)?.getFilterValue() as string) ?? ""}
                     onChange={(event) =>
-                        table.getColumn("name")?.setFilterValue(event.target.value)
+                        table.getColumn(filter.columnName)?.setFilterValue(event.target.value)
                     }
                     className="max-w-sm"
                 />
@@ -162,8 +162,9 @@ export function SortableTable({ data, columns, hiddenColumns = [] }: { data: any
             </div>
             <div className="flex items-center justify-end space-x-2 py-4">
                 <div className="flex-1 text-sm text-muted-foreground">
-                    {table.getFilteredSelectedRowModel().rows.length} of{" "}
-                    {table.getFilteredRowModel().rows.length} row(s) selected.
+                    {/* {table.getFilteredSelectedRowModel().rows.length} of{" "} */}
+                    {/* {table.getFilteredRowModel().rows.length} row(s) selected. */}
+                    {table.getFilteredRowModel().rows.length} total rows
                 </div>
                 <div className="space-x-2">
                     <Button

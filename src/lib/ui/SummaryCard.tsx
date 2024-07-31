@@ -7,6 +7,7 @@ import {
     CardHeader,
     CardTitle,
 } from "@/components/ui/card"
+import clsx from 'clsx';
 
 export function SummaryCard({ chunk, title, value, icon }: { chunk: number, title: string, value: string, icon?: any}) {
 
@@ -32,7 +33,10 @@ export function SummaryCard({ chunk, title, value, icon }: { chunk: number, titl
 
 export function SummaryCardGrid({ data }: { data: { title: string, value: string, icon?: any }[] }) {
     return (
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        <div className={clsx(
+            "grid grid-cols-1 gap-6 sm:grid-cols-2",
+            "lg:grid-cols-" + data.length
+        )}>
             {data.map((card, index) => (
                 <SummaryCard key={index} {...card} chunk={index} />
             ))}

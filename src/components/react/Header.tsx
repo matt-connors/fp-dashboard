@@ -6,12 +6,14 @@ import React from "react";
 
 export default function Header() {
 
-    const breadcrumbData = new URL(window.location.href).pathname.split('/').filter(Boolean).map((slug, index, array) => {
-        return {
-            title: slug.charAt(0).toUpperCase() + slug.slice(1),
-            slug: '/' + array.slice(0, index + 1).join('/')
-        }
-    });
+    const [primaryPath, ...path] = new URL(window.location.href).pathname.split('/').filter(Boolean);
+
+    const breadcrumbData = path.map((slug, index, array) => ({
+        // Make the first character of the path uppercase for the breadcrumb title
+        title: slug.charAt(0).toUpperCase() + slug.slice(1),
+        // Add the primary path (i.e trainer or client) to the remaining path
+        slug: `/${primaryPath}/${array.slice(0, index + 1).join('/')}`
+    }));
 
     return (
         <header className="flex justify-between sticky top-0 z-30 h-14 items-center gap-4 border-b bg-background px-4 pl-8 py-4 sm:static sm:h-auto sm:border-0 sm:bg-transparent">

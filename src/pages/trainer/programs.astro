@@ -1,0 +1,25 @@
+---
+import DashboardLayout from "@/src/layouts/dashboard.astro";
+
+import { PageHeading } from "@/src/lib/ui/PageHeading";
+import { Programs } from "@/src/components/react/Programs";
+
+const title = "Programs";
+const description = "A list of clients";
+
+
+---
+
+<DashboardLayout title={title} description={description}>
+    <PageHeading
+        title="Programs"
+        client:load
+        client:only="react"
+        includeBackButton={true}
+    />
+    <Programs
+        client:load
+        client:only="react"
+    />
+    
+</DashboardLayout>

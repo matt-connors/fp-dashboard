@@ -1,0 +1,19 @@
+---
+import DashboardLayout from "@/src/layouts/dashboard.astro";
+
+import { PageHeading } from "@/src/lib/ui/PageHeading";
+
+const title = "Programs";
+const description = "A list of clients";
+
+
+---
+
+<DashboardLayout title={title} description={description}>
+    <PageHeading
+        title="Dashboard"
+        client:load
+        client:only="react"
+    />
+    
+</DashboardLayout>
