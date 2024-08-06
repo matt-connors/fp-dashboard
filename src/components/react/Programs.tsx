@@ -5,42 +5,8 @@ import { Button } from "@/components/ui/button";
 
 import { Card } from "@/components/ui/card";
 
-import {
-    ProgramsLibraryTable,
-    type Program,
-} from "@/src/components/react/tables/ProgramsLibraryTable";
-
-import { MyProgramsTable } from "@/src/components/react/tables/MyProgramsTable";
-
-const myPrograms: Program[] = [
-    {
-        id: "1",
-        name: "Freds",
-        assignees: 1,
-        numberOfExercises: 19,
-    },
-];
-
-const programsLibrary: Program[] = [
-    {
-        id: "1",
-        name: "Push/Pull/Legs",
-        assignees: 3,
-        numberOfExercises: 21,
-    },
-    {
-        id: "2",
-        name: "Upper Lower",
-        assignees: 1,
-        numberOfExercises: 13,
-    },
-    {
-        id: "3",
-        name: "Full Body",
-        assignees: 0,
-        numberOfExercises: 24,
-    },
-];
+import ProgramsLibraryTable, { type Program } from "@/src/components/react/tables/ProgramsLibraryTable";
+import MyProgramsTable from "@/src/components/react/tables/MyProgramsTable";
 
 /**
  * The tab for the My Programs page
@@ -54,7 +20,7 @@ function MyPrograms() {
             <p className="flex flex-wrap items-center gap-1.5 break-words text-sm text-muted-foreground sm:gap-2.5 pb-2">
                 Manage and create custom programs
             </p>
-            <MyProgramsTable data={myPrograms} />
+            <MyProgramsTable />
         </Card>
     )
 }
@@ -71,7 +37,7 @@ function ProgramsLibrary() {
             <p className="flex flex-wrap items-center gap-1.5 break-words text-sm text-muted-foreground sm:gap-2.5 pb-2">
                 View and assign programs from our library
             </p>
-            <ProgramsLibraryTable data={programsLibrary} />
+            <ProgramsLibraryTable />
         </Card>
     )
 }

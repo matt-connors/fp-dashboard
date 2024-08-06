@@ -6,3 +6,36 @@ query getUser($userId:String!) {
     id
   }
 }
+
+query getExercises {
+    exercises {
+        id,
+        name,
+        bodyPart,
+        aliases,
+        category,
+        iconUrl
+    }
+}
+
+query getPublicPrograms {
+  publicPrograms {
+    id,
+    type,
+    name,
+    description,
+    programExercises {
+      exercise {
+        name,
+        id,
+        aliases,
+        category
+      }
+    },
+    userPrograms {
+      id,
+      startDate,
+      endDate
+    }
+  }
+}

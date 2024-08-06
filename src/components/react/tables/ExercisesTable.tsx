@@ -1,42 +1,33 @@
 
-import * as React from "react"
+import React, { useState, useEffect} from "react"
 import {
     CaretSortIcon,
-    DotsHorizontalIcon,
 } from "@radix-ui/react-icons"
 import {
     type ColumnDef,
 } from "@tanstack/react-table"
 
 import { Button } from "@/components/ui/button"
-import { Checkbox } from "@/components/ui/checkbox"
-import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuLabel,
-    DropdownMenuSeparator,
-    DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 
 import { SortableTable } from "../../../lib/ui/SortableTable"
+import WithQuery from "../WithQuery"
+import { GetExercisesDocument } from "@/src/graphql/generated"
 
 export type Exercise = {
     id: string,
     name: string,
-    bodypart: string,
+    bodyPart: string,
     category: string,
     aliases: string[],
-    icon_url: string,
-    name_url: string
+    iconUrl: string,
 }
 
 const columns: ColumnDef<Exercise>[] = [
     {
-        accessorKey: "icon_url",
+        accessorKey: "iconUrl",
         header: ({ table }) => (<></>),
         cell: ({ row }) => {
-            return <img src={`/images/exercises/${row.original.name_url}.png`} alt={row.getValue("name")} className="w-[55px] object-cover" />
+            return <img src={`/images/exercises/${row.original.iconUrl}.png`} alt={row.getValue("name")} className="w-[55px] object-cover" />
         },
     },
     {
@@ -55,7 +46,7 @@ const columns: ColumnDef<Exercise>[] = [
         cell: ({ row }) => <div>{row.getValue("name")}</div>,
     },
     {
-        accessorKey: "bodypart",
+        accessorKey: "bodyPart",
         header: ({ column }) => {
             return (
                 <Button
@@ -67,7 +58,7 @@ const columns: ColumnDef<Exercise>[] = [
                 </Button>
             )
         },
-        cell: ({ row }) => <div>{row.getValue("bodypart")}</div>,
+        cell: ({ row }) => <div>{row.getValue("bodyPart")}</div>,
     },
     {
         accessorKey: "category",
@@ -118,16 +109,23 @@ const columns: ColumnDef<Exercise>[] = [
     {
         id: "actions",
         enableHiding: false,
-        cell: ({ row }) => {
-            
-        },
+        cell: ({ row }) => {},
     },
 ]
 
-export function ExercisesTable({ data }: { data: Exercise[] }) {
+function ExercisesTable({ data }: { data: { exercises: Exercise[] } }) {
+
+    const [response, setResponse] = useState<any>();
+
+    useEffect(() => {
+        if (data) {
+            setResponse(data.exercises);
+        }
+    }, [data]);
+
     return (
         <SortableTable
-            data={data}
+            data={response}
             columns={columns}
             hiddenColumns={["aliases", "category"]}
             filter={{
@@ -137,3 +135,7 @@ export function ExercisesTable({ data }: { data: Exercise[] }) {
         />
     )
 }
+
+export default WithQuery(ExercisesTable, {
+    query: GetExercisesDocument,
+});

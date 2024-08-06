@@ -42,6 +42,11 @@ import clsx from "clsx"
 
 
 export function SortableTable({ data, columns, hiddenColumns = [], filter }: { data: any[], columns: any[], hiddenColumns?: string[], filter: { title: string, columnName: string } }) {
+
+    if (!data || !columns) {
+        return
+    }
+    
     const [sorting, setSorting] = React.useState<SortingState>([])
     const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([])
     const [columnVisibility, setColumnVisibility] =

@@ -1,0 +1,197 @@
+---
+import DefaultLayout from "../layouts/default.astro";
+import OnboardingHeader from "../components/astro/OnboardingHeader.astro";
+
+import "../styles/global.css";
+
+import { Card } from "@/components/ui/card";
+import { Toaster } from "@/components/ui/toaster";
+import { TrainerForm } from "@/src/components/react/OnboardingTrainerForm";
+
+import { OnboardingCodeInput } from "@/src/components/react/OnboardingCodeInput";
+
+import { PersonStanding, Dumbbell } from "lucide-react";
+
+const title = "Login";
+const description = "";
+---
+
+<DefaultLayout title={title} description={description}>
+    <main>
+        <!--
+            Options section for selecting client or trainer registration
+        -->
+        <section id="options" class="grid grid-rows-[1fr] h-screen">
+            <div class="flex items-center justify-center">
+                <div class="flex gap-6">
+                    <Card
+                        className="flex justify-center items-center flex-col py-5 px-6 gap-2 hover:shadow-lg hover:border-primary cursor-pointer"
+                        id="select-client"
+                    >
+                        <PersonStanding className="h-8 w-8" />
+                        <span class="text-lg">Register as a client</span>
+                    </Card>
+                    <Card
+                        className="flex justify-center items-center flex-col py-5 px-6 gap-2 hover:shadow-lg hover:border-primary cursor-pointer"
+                        id="select-trainer"
+                    >
+                        <Dumbbell className="h-8 w-6" />
+                        <span class="text-lg">Register as a trainer</span>
+                    </Card>
+                </div>
+            </div>
+        </section>
+        <!--
+            Client Registration
+        -->
+        <section
+            id="client"
+            class="grid grid-rows-[auto_1fr] h-screen pb-[50px]"
+        >
+            <OnboardingHeader title="Client Registration" />
+            <OnboardingCodeInput client:only="react" />
+        </section>
+        <!--
+            Trainer Registration
+        -->
+        <section
+            id="trainer"
+            class="grid grid-rows-[auto__auto__1fr] h-screen pb-[50px]"
+        >
+            <OnboardingHeader title="Trainer Registration" />
+            <div class="text-center p-12">
+                <h1 class="text-2xl">Help us seup your account</h1>
+                <p class="text-muted-foreground p-1">
+                    Fill in the form below to get started
+                </p>
+            </div>
+            <div class="flex items-start justify-center pb-10">
+                <Card className="p-10 w-[min(100%,600px)]">
+                    <TrainerForm client:only="react" />
+                </Card>
+            </div>
+        </section>
+        <!--
+            General User Registration
+         -->
+        <section
+            id="user"
+            class="grid grid-rows-[auto__auto__1fr] h-screen pb-[50px]"
+        >
+            <OnboardingHeader title="User Registration" />
+            <div class="text-center p-12">
+                <h1 class="text-2xl">Help us seup your account</h1>
+                <p class="text-muted-foreground">
+                    Fill in the form below to get started
+                </p>
+            </div>
+        </section>
+    </main>
+</DefaultLayout>
+<Toaster client:only="react" />
+<style>
+    main {
+        overflow-x: hidden;
+        scroll-snap-type: x mandatory;
+        scroll-behavior: smooth;
+        display: grid;
+        grid-template-columns: repeat(4, 100%);
+        grid-auto-flow: column;
+        height: 100vh;
+    }
+    main section {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        scroll-snap-align: center;
+    }
+    body {
+        overflow: hidden;
+        width: 100vw;
+        height: 100vh;
+    }
+</style>
+
+<script is:inline>
+    console.log('script loaded')
+    const main = document.querySelector("main");
+    const options = document.querySelector("#options");
+    const client = document.querySelector("#client");
+    const trainer = document.querySelector("#trainer");
+    const user = document.querySelector("#user");
+
+    const selectClient = document.querySelector("#select-client",);
+    const selectTrainer = document.querySelector("#select-trainer");
+    const backButtons = document.querySelectorAll("[data-back-button]");
+
+    /**
+     * Scroll to the page horizontally to a section
+     */
+    function scrollToPage(page) {
+        main.scrollTo({
+            left: page.offsetLeft,
+            top: 0,
+            behavior: "smooth",
+        });
+        // change the URL hash to the section ID
+        window.location.hash = `#${page.id}`;
+    }
+
+    /**
+     * Hide the other option when one is selected
+     */
+    function hideOtherOption(
+        thisOption,
+        otherOption
+    ) {
+        thisOption.style.display = "grid";
+        otherOption.style.display = "none";
+    }
+
+    /**
+     * Select the client registration option
+     */
+    selectClient.addEventListener("click", () => {
+        hideOtherOption(client, trainer); // Hide the trainer registration option when smooth scrolling
+        scrollToPage(client);
+    });
+
+    /**
+     * Select the trainer registration option
+     */
+    selectTrainer.addEventListener("click", () => {
+        hideOtherOption(trainer, client); // Hide the client registration option when smooth scrolling
+        scrollToPage(trainer);
+    });
+
+    /**
+     * Scroll to the options page when the back button is clicked
+     */
+    backButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+            scrollToPage(options);
+        });
+    });
+
+    /**
+     * Automatically route requests to the appropriate section based on the URL hash
+     */
+    document.addEventListener("DOMContentLoaded", () => {
+        switch (window.location.hash) {
+            case "#client":
+                hideOtherOption(client, trainer);
+                scrollToPage(client);
+                break;
+            case "#trainer":
+                hideOtherOption(trainer, client);
+                scrollToPage(trainer);
+                break;
+            case "#user":
+                hideOtherOption(user, client);
+                scrollToPage(user);
+            default:
+                scrollToPage(options);
+                break;
+        }
+    });
+</script>

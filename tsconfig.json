@@ -4,6 +4,7 @@
         "types": [
             "@cloudflare/workers-types/2023-07-01"
         ],
+        "moduleResolution": "node",
         "jsx": "react",
         "strictNullChecks": true,
         "allowJs": true,

@@ -21,6 +21,8 @@ import {
 
 import { SortableTable } from "../../../lib/ui/SortableTable"
 import { AssignProgramPopup } from "../AssignProgramPopup"
+import WithQuery from "../WithQuery"
+import { GetPublicProgramsDocument } from "@/src/graphql/generated"
 
 export type Program = {
     id: string,
@@ -103,10 +105,23 @@ const columns: ColumnDef<Program>[] = [
     },
 ]
 
-export function ProgramsLibraryTable({ data }: { data: Program[] }) {
+function ProgramsLibraryTable({ data }: { data: { publicPrograms: Program[] } }) {
+
+    const [response, setResponse] = React.useState<any>();
+
+    React.useEffect(() => {
+        if (data) {
+            setResponse(data.publicPrograms.map((program: any) => ({
+                ...program,
+                numberOfExercises: program.programExercises.length,
+                assignees: program.userPrograms.length,
+            })));
+        }
+    }, [data]);
+
     return (
         <SortableTable
-            data={data}
+            data={response}
             columns={columns}
             filter={{
                 title: "programs",
@@ -115,3 +130,7 @@ export function ProgramsLibraryTable({ data }: { data: Program[] }) {
         />
     )
 }
+
+export default WithQuery(ProgramsLibraryTable, {
+    query: GetPublicProgramsDocument,
+});
