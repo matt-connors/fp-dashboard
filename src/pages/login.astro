@@ -2,6 +2,20 @@
 import GoogleButton from "../components/astro/GoogleButton.astro";
 import DefaultLayout from "../layouts/default.astro";
 
+import "@/src/styles/global.css";
+
+import { Button } from "@/components/ui/button";
+import {
+    Card,
+    CardContent,
+    CardDescription,
+    CardFooter,
+    CardHeader,
+    CardTitle,
+} from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+
 const title = "Login";
 const description = "";
 
@@ -18,71 +32,51 @@ const description = "";
         </video>
     </aside>
     <main>
-        <section>
-            <h1>Sign in</h1>
-            <form action="/login" method="POST">
-                <GoogleButton />
-                <fieldset>
-                    <legend>OR</legend>
-                    <label>
-                        <span>Email</span>
-                        <input
+        <form action="/login" method="POST">
+            <Card className="w-full max-w-sm p-3">
+                <CardHeader>
+                    <CardTitle className="text-2xl">Login</CardTitle>
+                    <CardDescription>
+                        Enter your email below to login to your account.
+                    </CardDescription>
+                </CardHeader>
+                <CardContent className="grid gap-4">
+                    <div class="grid gap-2">
+                        <Label htmlFor="email">Email</Label>
+                        <Input
+                            id="email"
                             type="email"
+                            placeholder="Enter your email"
                             name="email"
                             required
-                            placeholder="Enter your email"
                             autocomplete="email"
                         />
-                    </label>
-                    <label>
-                        <span>Password</span>
-                        <input
+                    </div>
+                    <div class="grid gap-2">
+                        <Label htmlFor="password">Password</Label>
+                        <Input
+                            id="password"
                             type="password"
+                            placeholder="Enter your password"
                             name="password"
                             required
-                            placeholder="Enter your password"
                             autocomplete="current-password"
                         />
-                    </label>
-                </fieldset>
-                <button class="button-primary">Login</button>
-            </form>
-            <p id="other">
-                Don't have an account? <a href="/signup">Register</a>
-            </p>
-        </section>
+                    </div>
+                </CardContent>
+                <CardFooter className="flex flex-col gap-4">
+                    <Button className="w-full">Sign in</Button>
+                    <p class="text-center text-sm text-gray-500">
+                        Don't have an account?
+                        <a href="/signup" class="text-primary">
+                            Sign up
+                        </a>
+                    </p>
+                </CardFooter>
+            </Card>
+        </form>
     </main>
 </DefaultLayout>
-
-<!-- <script>
-    import { signInExistingUser } from "../lib/supabase/auth";
-    import { z } from "zod";
-
-    const formDataSchema = z.object({
-        email: z.string().email(),
-        password: z.string().min(8),
-    });
-
-    const form = document.querySelector("form") as HTMLFormElement;
-
-    form.addEventListener("submit", (e: any) => {
-        e.preventDefault();
-        const formData = new FormData(form);
-        // Ensure the form data is valid before attempting to submit it to the server
-        const { data, error } = formDataSchema.safeParse({
-            email: formData.get("email"),
-            password: formData.get("password")
-        });
-        // If there is an error, show the error message and return early
-        if (error) {
-            // show error message
-            console.warn("Error: ", error);
-            return;
-        }
-        // Signin the user using supabase
-        signInExistingUser(data.email, data.password);
-    });
-</script> -->
 
 <style>
     #background {
@@ -109,67 +103,7 @@ const description = "";
         justify-content: center;
         align-items: center;
     }
-    main section {
-        display: flex;
-        flex-direction: column;
-        /* gap: 2rem; */
-        background-color: var(--color-background-1);
-        border-radius: var(--border-radius-1);
-        padding: 4rem;
-        width: min(350px, 100%);
-    }
 
-    h1 {
-        margin-bottom: 2rem;
-    }
-
-    fieldset {
-        border: none;
-        border-top: 1px solid var(--color-border);
-        margin: 2rem 0 0;
-        padding: 2rem 0 0;
-    }
-    fieldset legend {
-        padding: 0 10px;
-        text-align: center;
-        color: var(--color-text-2);
-    }
-    label {
-        display: flex;
-        flex-direction: column;
-        gap: 8px;
-        margin-bottom: 1.5rem;
-    }
-    input[type="email"],
-    input[type="password"] {
-        padding: var(--border-radius-2) 14px;
-        border: 1px solid var(--color-border);
-        border-radius: var(--border-radius-2);
-        width: 100%;
-        box-sizing: border-box;
-    }
-    input::placeholder {
-        color: var(--color-text-3);
-    }
-    label small {
-        color: var(--color-text-2);
-    }
-    label span {
-        font-weight: 530;
-    }
-    .button-primary {
-        width: 100%;
-        margin-top: 1rem;
-    }
-    #other {
-        margin-top: 1.5rem;
-        text-align: center;
-        color: var(--color-text-2);
-    }
-    #other a {
-        text-decoration: underline;
-        /* color: var(--color-text-1); */
-    }
     input:-webkit-autofill,
     input:-webkit-autofill:hover,
     input:-webkit-autofill:focus,

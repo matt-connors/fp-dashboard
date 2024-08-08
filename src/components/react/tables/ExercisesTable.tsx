@@ -27,7 +27,7 @@ const columns: ColumnDef<Exercise>[] = [
         accessorKey: "iconUrl",
         header: ({ table }) => (<></>),
         cell: ({ row }) => {
-            return <img src={`/images/exercises/${row.original.iconUrl}.png`} alt={row.getValue("name")} className="w-[55px] object-cover" />
+            return <img src={row.original.iconUrl} alt={row.getValue("name")} className="w-[55px] object-cover" />
         },
     },
     {
