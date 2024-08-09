@@ -20,7 +20,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 import { SortableTable } from "../../../lib/ui/SortableTable"
-import { AssignProgramPopup } from "../AssignProgramPopup"
+import AssignProgramPopup from "../AssignProgramPopup"
 import WithQuery from "../WithQuery"
 import { GetPublicProgramsDocument } from "@/src/graphql/generated"
 
