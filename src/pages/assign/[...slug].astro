@@ -1,0 +1,59 @@
+---
+const { slug } = Astro.params;
+---
+
+<html>
+    <head>
+        <script>
+            import { getMutationData } from "../../lib/utils/graphql";
+            import { AssignProgramDocument } from "../../graphql/generated";
+
+            try {
+                const slug = window.location.pathname.split("/").pop();
+
+                // Ensure a slug is provided
+                if (!slug) {
+                    // return to the programs page with an error message
+                    window.location.assign(
+                        "/trainer/programs?message=No%20slug%20provided",
+                    );
+                }
+
+                // Split the slug into user and program IDs
+                const [userId, programId] = slug!.split(":");
+
+                // Ensure both IDs are provided
+                if (!userId || !programId) {
+                    // return to the programs page with an error message
+                    window.location.assign("/trainer/programs?message=Invalid%20slug");
+                }
+
+                // Execute the mutation to assign the program to the user
+                const response = await getMutationData(AssignProgramDocument, {
+                    userId,
+                    programId,
+                });
+                console.log(response);
+
+                // ensure there is a response
+                if (!response) {
+                    // return to the programs page with an error message
+                    window.location.assign(
+                        "/trainer/programs?message=Error%20assigning%20program",
+                    );
+                }
+
+                // redirect to the programs page with a success message
+                window.location.assign(
+                    "/trainer/programs?message=Program%20successfully%20assigned&variant=default",
+                );
+            }
+            catch (error) {
+                // return to the programs page with an error message
+                window.location.assign(
+                    "/trainer/programs?message=Uncaught%20error%20assigning%20program"
+                );
+            }
+        </script>
+    </head>
+</html>

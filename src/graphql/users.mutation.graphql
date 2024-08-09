@@ -1,0 +1,5 @@
+mutation assignProgram($userId: String!, $programId: Int!) {
+  assignProgram(userId: $userId, programId: $programId) {
+    id
+  }
+}

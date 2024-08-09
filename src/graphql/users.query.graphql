@@ -39,3 +39,40 @@ query getPublicPrograms {
     }
   }
 }
+
+query getMyPrograms {
+  myPrograms {
+    id
+    type
+    name
+    description
+    programExercises {
+      exercise {
+        name
+        id
+        aliases
+        category
+      }
+    }
+    userPrograms {
+      id
+      startDate
+      endDate
+    }
+  }
+}
+
+query getClients {
+  trainerWithClients {
+    id,
+    businessName,
+    users {
+      id,
+      firstName,
+      lastName,
+      email,
+      country
+    }
+  }
+}
+

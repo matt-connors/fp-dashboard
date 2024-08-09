@@ -20,9 +20,9 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 import { SortableTable } from "../../../lib/ui/SortableTable"
-import { AssignProgramPopup } from "../AssignProgramPopup"
+import AssignProgramPopup from "../AssignProgramPopup"
 import WithQuery from "../WithQuery"
-import { GetPublicProgramsDocument } from "@/src/graphql/generated"
+import { GetMyProgramsDocument } from "@/src/graphql/generated"
 
 export type Program = {
     id: string,
@@ -105,17 +105,19 @@ const columns: ColumnDef<Program>[] = [
     },
 ]
 
-function MyProgramsTable({ data }: { data: { publicPrograms: Program[] } }) {
+function MyProgramsTable({ data }: { data: { myPrograms: Program[] } }) {
 
     const [response, setResponse] = React.useState<any>();
 
     React.useEffect(() => {
         if (data) {
-            setResponse(data.publicPrograms.map((program: any) => ({
-                ...program,
-                numberOfExercises: program.programExercises.length,
-                assignees: program.userPrograms.length,
-            })));
+            setResponse(
+                data.myPrograms.map((program: any) => ({
+                    ...program,
+                    numberOfExercises: program.programExercises.length,
+                    assignees: program.userPrograms.length,
+                }))
+            );
         }
     }, [data]);
 
@@ -132,5 +134,5 @@ function MyProgramsTable({ data }: { data: { publicPrograms: Program[] } }) {
 }
 
 export default WithQuery(MyProgramsTable, {
-    query: GetPublicProgramsDocument,
+    query: GetMyProgramsDocument,
 });

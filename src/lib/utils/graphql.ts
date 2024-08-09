@@ -38,3 +38,18 @@ export function getQueryData(document: DocumentNode, options: { [key: string]: a
             });
     });
 }
+
+/**
+ * Execute a mutation without react and return the data.
+ */
+export function getMutationData(document: DocumentNode, options: { [key: string]: any }) {
+    return new Promise((resolve, reject) => {
+        client.mutation(document, options)
+            .subscribe(({ data }) => {
+                if (data) {
+                    resolve(data as typeof document);
+                }
+                reject('No data returned from mutation');
+            });
+    });
+}

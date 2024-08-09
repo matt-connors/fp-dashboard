@@ -27,6 +27,17 @@ export type Exercise = {
   programExercise?: Maybe<ProgramExercise>;
 };
 
+export type Mutation = {
+  __typename?: 'Mutation';
+  assignProgram?: Maybe<Program>;
+};
+
+
+export type MutationAssignProgramArgs = {
+  programId: Scalars['Int']['input'];
+  userId: Scalars['String']['input'];
+};
+
 export type Permission = {
   __typename?: 'Permission';
   action?: Maybe<PermissionAction>;
@@ -77,9 +88,11 @@ export type Query = {
   __typename?: 'Query';
   exercise?: Maybe<Exercise>;
   exercises?: Maybe<Array<Exercise>>;
+  myPrograms?: Maybe<Array<Program>>;
   program?: Maybe<Program>;
   publicPrograms?: Maybe<Array<Program>>;
   trainer?: Maybe<Trainer>;
+  trainerWithClients?: Maybe<Trainer>;
   trainerWithPrograms?: Maybe<Array<Trainer>>;
   user?: Maybe<User>;
 };
@@ -119,6 +132,7 @@ export type Role = {
 
 export type Trainer = {
   __typename?: 'Trainer';
+  businessName?: Maybe<Scalars['String']['output']>;
   id?: Maybe<Scalars['ID']['output']>;
   trainerPrograms?: Maybe<Array<TrainerPrograms>>;
   users?: Maybe<Array<User>>;
@@ -133,8 +147,11 @@ export type TrainerPrograms = {
 
 export type User = {
   __typename?: 'User';
+  country?: Maybe<Scalars['String']['output']>;
   email?: Maybe<Scalars['String']['output']>;
+  firstName?: Maybe<Scalars['String']['output']>;
   id?: Maybe<Scalars['ID']['output']>;
+  lastName?: Maybe<Scalars['String']['output']>;
   trainer?: Maybe<Trainer>;
   userProgram?: Maybe<Array<UserProgram>>;
   userRoles?: Maybe<Array<UserRole>>;
@@ -156,6 +173,14 @@ export type UserRole = {
   user?: Maybe<User>;
 };
 
+export type AssignProgramMutationVariables = Exact<{
+  userId: Scalars['String']['input'];
+  programId: Scalars['Int']['input'];
+}>;
+
+
+export type AssignProgramMutation = { __typename?: 'Mutation', assignProgram?: { __typename?: 'Program', id?: string | null } | null };
+
 export type GetUserQueryVariables = Exact<{
   userId: Scalars['String']['input'];
 }>;
@@ -173,7 +198,20 @@ export type GetPublicProgramsQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type GetPublicProgramsQuery = { __typename?: 'Query', publicPrograms?: Array<{ __typename?: 'Program', id?: string | null, type?: ProgramType | null, name?: string | null, description?: string | null, programExercises?: Array<{ __typename?: 'ProgramExercise', exercise?: { __typename?: 'Exercise', name?: string | null, id?: string | null, aliases?: Array<string> | null, category?: string | null } | null }> | null, userPrograms?: Array<{ __typename?: 'UserProgram', id?: string | null, startDate?: string | null, endDate?: string | null }> | null }> | null };
 
+export type GetMyProgramsQueryVariables = Exact<{ [key: string]: never; }>;
 
+
+export type GetMyProgramsQuery = { __typename?: 'Query', myPrograms?: Array<{ __typename?: 'Program', id?: string | null, type?: ProgramType | null, name?: string | null, description?: string | null, programExercises?: Array<{ __typename?: 'ProgramExercise', exercise?: { __typename?: 'Exercise', name?: string | null, id?: string | null, aliases?: Array<string> | null, category?: string | null } | null }> | null, userPrograms?: Array<{ __typename?: 'UserProgram', id?: string | null, startDate?: string | null, endDate?: string | null }> | null }> | null };
+
+export type GetClientsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetClientsQuery = { __typename?: 'Query', trainerWithClients?: { __typename?: 'Trainer', id?: string | null, businessName?: string | null, users?: Array<{ __typename?: 'User', id?: string | null, firstName?: string | null, lastName?: string | null, email?: string | null, country?: string | null }> | null } | null };
+
+
+export const AssignProgramDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"assignProgram"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"userId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"programId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"assignProgram"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"userId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"userId"}}},{"kind":"Argument","name":{"kind":"Name","value":"programId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"programId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}}]} as unknown as DocumentNode<AssignProgramMutation, AssignProgramMutationVariables>;
 export const GetUserDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"getUser"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"userId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"user"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"userId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"userId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}}]} as unknown as DocumentNode<GetUserQuery, GetUserQueryVariables>;
 export const GetExercisesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"getExercises"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"exercises"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"bodyPart"}},{"kind":"Field","name":{"kind":"Name","value":"aliases"}},{"kind":"Field","name":{"kind":"Name","value":"category"}},{"kind":"Field","name":{"kind":"Name","value":"iconUrl"}}]}}]}}]} as unknown as DocumentNode<GetExercisesQuery, GetExercisesQueryVariables>;
 export const GetPublicProgramsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"getPublicPrograms"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"publicPrograms"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"programExercises"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"exercise"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"aliases"}},{"kind":"Field","name":{"kind":"Name","value":"category"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"userPrograms"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"startDate"}},{"kind":"Field","name":{"kind":"Name","value":"endDate"}}]}}]}}]}}]} as unknown as DocumentNode<GetPublicProgramsQuery, GetPublicProgramsQueryVariables>;
+export const GetMyProgramsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"getMyPrograms"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"myPrograms"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"programExercises"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"exercise"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"aliases"}},{"kind":"Field","name":{"kind":"Name","value":"category"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"userPrograms"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"startDate"}},{"kind":"Field","name":{"kind":"Name","value":"endDate"}}]}}]}}]}}]} as unknown as DocumentNode<GetMyProgramsQuery, GetMyProgramsQueryVariables>;
+export const GetClientsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"getClients"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"trainerWithClients"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"businessName"}},{"kind":"Field","name":{"kind":"Name","value":"users"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"firstName"}},{"kind":"Field","name":{"kind":"Name","value":"lastName"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"country"}}]}}]}}]}}]} as unknown as DocumentNode<GetClientsQuery, GetClientsQueryVariables>;

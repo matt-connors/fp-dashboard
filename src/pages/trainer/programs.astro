@@ -3,6 +3,8 @@ import DashboardLayout from "@/src/layouts/dashboard.astro";
 
 import { PageHeading } from "@/src/lib/ui/PageHeading";
 import { Programs as ClientPrograms } from "@/src/components/react/Programs";
+import { DisplayQueryMessage } from "@/src/components/react/DisplayQueryMessage";
+import { Toaster } from "@/components/ui/toaster";
 
 const title = "Programs";
 const description = "A list of clients";
@@ -21,5 +23,6 @@ const description = "A list of clients";
         client:load
         client:only="react"
     />
-    
+    <DisplayQueryMessage client:only="react" />
+    <Toaster client:only="react" />
 </DashboardLayout>

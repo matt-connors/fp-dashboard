@@ -8,9 +8,9 @@ import type { DocumentNode } from 'graphql';
 /**
  * Pass a query to a component as a prop.
  */
-function WithQuery(WrappedComponent: React.FC<{ data: any }>, query: UseQueryArgs) {
+function WithQuery(WrappedComponent: React.FC<any>, query: UseQueryArgs) {
 
-    const Wrapper = ({ ...props }) => {
+    const Wrapper = ({ ...props }: any) => {
 
         const [data, setData] = useState(null);
 
