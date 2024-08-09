@@ -13,9 +13,9 @@ catch (err) {
  * Urls for the client site builder
  * DO NOT ADD TRAILING SLASHES
  */
-export const SiteUrl =      isDev ? 'http://127.0.0.1:1130'         : 'https://example.com';
+export const SiteUrl =      isDev ? 'http://127.0.0.1:1130'         : 'https://fp-auth-proxy.matt-f33.workers.dev';
 // note that for development, this also needs to be updated in codegen.yml
-export const GraphqlUrl =   isDev ? 'http://localhost:1130/data-api/graphql' : 'https://api.example.com/graphql'; 
+export const GraphqlUrl =   isDev ? 'http://localhost:1130/data-api/graphql' : 'https://fp-auth-proxy.matt-f33.workers.dev/data-api/graphql'; 
 
 if (isDev) {
     console.log('%c\nDevelopment Mode\n', 'color: red; font-size: 20px; font-weight: normal;')
