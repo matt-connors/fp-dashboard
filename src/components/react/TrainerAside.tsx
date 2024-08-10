@@ -35,11 +35,6 @@ export function TrainerAside() {
                     icon: Activity,
                     slug: "/exercises",
                 },
-                {
-                    title: "Settings",
-                    icon: Settings,
-                    slug: "/settings",
-                },
             ]}
         />
     )

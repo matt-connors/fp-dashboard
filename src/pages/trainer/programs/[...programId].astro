@@ -1,0 +1,14 @@
+---
+
+import DashboardLayout from "@/src/layouts/dashboard.astro";
+import { PageHeading } from "@/src/lib/ui/PageHeading";
+import EditProgram from "@/src/components/react/EditProgram";
+
+const title = "Program";
+const description = "A list of clients";
+---
+
+<DashboardLayout title={title} description={description}>
+    <PageHeading title="Edit Program" client:load client:only="react" />
+    <EditProgram client:load client:only="react" />
+</DashboardLayout>

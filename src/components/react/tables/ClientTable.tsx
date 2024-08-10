@@ -22,40 +22,16 @@ import {
 import { SortableTable } from "../../../lib/ui/SortableTable"
 
 export type Client = {
-    id: string,
-    name: string,
-    startDate: string,
-    paidUntil: string,
-    clientType: string[],
-    status: string,
-    actionNeeded: string,
+    id: string;
+    email: string;
+    firstName: string;
+    lastName: string;
+    country: string;
 }
 
 const columns: ColumnDef<Client>[] = [
-    // {
-    //     id: "select",
-    //     header: ({ table }) => (
-    //         <Checkbox
-    //             checked={
-    //                 table.getIsAllPageRowsSelected() ||
-    //                 (table.getIsSomePageRowsSelected() && "indeterminate")
-    //             }
-    //             onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-    //             aria-label="Select all"
-    //         />
-    //     ),
-    //     cell: ({ row }) => (
-    //         <Checkbox
-    //             checked={row.getIsSelected()}
-    //             onCheckedChange={(value) => row.toggleSelected(!!value)}
-    //             aria-label="Select row"
-    //         />
-    //     ),
-    //     enableSorting: true,
-    //     enableHiding: true,
-    // },
     {
-        accessorKey: "name",
+        accessorKey: "firstName",
         header: ({ column }) => {
             return (
                 <Button
@@ -67,25 +43,10 @@ const columns: ColumnDef<Client>[] = [
                 </Button>
             )
         },
-        cell: ({ row }) => <div>{row.getValue("name")}</div>,
+        cell: ({ row }) => <div>{row.original.firstName + ' ' + row.original.lastName}</div>,
     },
     {
-        accessorKey: "startDate",
-        header: ({ column }) => {
-            return (
-                <Button
-                    variant="ghost"
-                    onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-                >
-                    StartDate
-                    <CaretSortIcon className="ml-2 h-4 w-4" />
-                </Button>
-            )
-        },
-        cell: ({ row }) => <div className="lowercase">{row.getValue("startDate")}</div>,
-    },
-    {
-        accessorKey: "paidUntil",
+        accessorKey: "email",
         header: ({ column }) => {
             return (
                 <Button
@@ -97,36 +58,10 @@ const columns: ColumnDef<Client>[] = [
                 </Button>
             )
         },
-        cell: ({ row }) => <div className="lowercase">{row.getValue("paidUntil")}</div>,
+        cell: ({ row }) => <div className="lowercase">{row.getValue("email")}</div>,
     },
     {
-        accessorKey: "clientType",
-        header: ({ column }) => {
-            return (
-                <Button
-                    variant="ghost"
-                    onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-                >
-                    Client Type
-                    <CaretSortIcon className="ml-2 h-4 w-4" />
-                </Button>
-            )
-        },
-        cell: ({ row }) => {
-            let clientTypes = row.getValue("clientType") as string[]
-            return (
-                <div className="flex gap-2">
-                    {
-                        clientTypes.map((type, index) => (
-                            <span key={index} className="border px-3 py-0.5 rounded-md text-xs font-medium">{type}</span>
-                        ))
-                    }
-                </div>
-            )
-        }
-    },
-    {
-        accessorKey: "status",
+        accessorKey: "country",
         header: ({ column }) => {
             return (
                 <Button
@@ -138,22 +73,7 @@ const columns: ColumnDef<Client>[] = [
                 </Button>
             )
         },
-        cell: ({ row }) => <div>{row.getValue("status")}</div>,
-    },
-    {
-        accessorKey: "actionNeeded",
-        header: ({ column }) => {
-            return (
-                <Button
-                    variant="ghost"
-                    onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-                >
-                    Action Needed
-                    <CaretSortIcon className="ml-2 h-4 w-4" />
-                </Button>
-            )
-        },
-        cell: ({ row }) => <div>{row.getValue("actionNeeded")}</div>,
+        cell: ({ row }) => <div>{row.getValue("country")}</div>,
     },
     {
         id: "actions",
@@ -191,10 +111,9 @@ export function ClientTable({ data }: { data: Client[] }) {
         <SortableTable
             data={data}
             columns={columns}
-            hiddenColumns={["startDate", "paidUntil"]}
             filter={{
                 title: "names",
-                columnName: "name"
+                columnName: "firstName"
             }}
         />
     )

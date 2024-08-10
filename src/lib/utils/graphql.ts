@@ -11,7 +11,7 @@ const options = {
     maxDelayMs: 15000,
     randomDelay: true,
     maxNumberAttempts: 3,
-    retryIf: (err: any) => err && err.networkError,
+    retryIf: (err: any) => err && err.response.status !== 401
 };
 
 export const client = createClient({
@@ -30,13 +30,17 @@ export const client = createClient({
 export function getQueryData(document: DocumentNode, options: { [key: string]: any }) {
     return new Promise((resolve, reject) => {
         client.query(document, options)
-            .subscribe(({ data }) => {
+            .subscribe(({ data, error }) => {
+                // Redirect to login if the user is not authenticated
+                if (error && error.response.status === 401) {
+                    window.location.href = '/login';
+                }
                 if (data) {
                     resolve(data as typeof document);
                 }
                 reject('No data returned from query');
             });
-    });
+    })
 }
 
 /**

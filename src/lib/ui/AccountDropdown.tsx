@@ -27,10 +27,11 @@ export function AccountDropdown() {
             <DropdownMenuContent align="end">
                 <DropdownMenuLabel>My Account</DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem>Settings</DropdownMenuItem>
-                <DropdownMenuItem>Support</DropdownMenuItem>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem>Logout</DropdownMenuItem>
+                <a href="/logout">
+                    <DropdownMenuItem>
+                        Logout
+                    </DropdownMenuItem>
+                </a>
             </DropdownMenuContent>
         </DropdownMenu>
     );

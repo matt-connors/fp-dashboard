@@ -3,3 +3,29 @@ mutation assignProgram($userId: String!, $programId: Int!) {
     id
   }
 }
+
+mutation removeExerciseFromProgram($programId:Int!, $exerciseId:Int!) {
+  removeExercise(programId: $programId, exerciseId: $exerciseId) {
+    id
+  }
+}
+
+mutation updateProgramExercise($programId: Int!, $exerciseId: Int!, $sets: Int, $reps: Int, $notes: String) {
+  updateProgramExercise(
+    programId: $programId
+    exerciseId: $exerciseId
+    sets: $sets
+    reps: $reps
+    notes: $notes
+  ) {
+    sets,
+    reps,
+    notes
+  }
+}
+
+mutation updateProgram($programId: Int!, $name: String, $description: String) {
+  updateProgram(programId: $programId, name: $name, description: $description) {
+    id
+  }
+}

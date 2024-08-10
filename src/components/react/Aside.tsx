@@ -11,24 +11,25 @@ export function Aside({ menuItems }: { menuItems: { title: string, icon: any, sl
             </div>
             <nav className="h-full">
                 <ul>
-                    {menuItems.map(({ title, icon, slug }) => {
-                        let Icon = icon;
-
-                        let [type, primaryPath] = window.location.pathname.split('/').filter(Boolean);
-                        let slugPrimaryPath = slug.split('/')[1];
-                        let isActive = primaryPath === slugPrimaryPath || (!primaryPath && slugPrimaryPath === "");
-                        return (
-                            <li key={slug}>
-                                <a href={`/${type}${slug}`} className={clsx(
-                                    "flex items-center gap-3 py-1.5 px-3 rounded-md",
-                                    isActive && "bg-primary text-white"
-                                )}>
-                                    {icon && <Icon className="h-4 w-4 font-medium text-md" />}
-                                    <span>{title}</span>
-                                </a>
-                            </li>
-                        )
-                    })}
+                    {
+                        menuItems.map(({ title, icon, slug }) => {
+                            let Icon = icon;
+                            let [type, primaryPath] = window.location.pathname.split('/').filter(Boolean);
+                            let slugPrimaryPath = slug.split('/')[1];
+                            let isActive = primaryPath === slugPrimaryPath || (!primaryPath && slugPrimaryPath === "");
+                            return (
+                                <li key={slug}>
+                                    <a href={`/${type}${slug}`} className={clsx(
+                                        "flex items-center gap-3 py-1.5 px-3 rounded-md",
+                                        isActive && "bg-primary text-white"
+                                    )}>
+                                        {icon && <Icon className="h-4 w-4 font-medium text-md" />}
+                                        <span>{title}</span>
+                                    </a>
+                                </li>
+                            )
+                        })
+                    }
                 </ul>
             </nav>
         </aside>

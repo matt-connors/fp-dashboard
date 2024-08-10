@@ -76,3 +76,26 @@ query getClients {
   }
 }
 
+query getProgramDetails($programId: String!) {
+  program(programId: $programId) {
+    id
+    type
+    description
+    name
+    programExercises {
+      order
+      duration
+      sets
+      reps
+      notes
+      exercise {
+        id
+        name
+        bodyPart
+        aliases
+        iconUrl
+        category
+      }
+    }
+  }
+}

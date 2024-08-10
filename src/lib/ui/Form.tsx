@@ -28,9 +28,12 @@ type InputFormProps = {
         zod: (z: any) => z.ZodType<any, any>
     }[]
     onSubmit: (data: any) => void
+    defaultValues?: {
+        [key: string]: string
+    }
 }
 
-export function InputForm({ onSubmit, fields }: InputFormProps) {
+export function InputForm({ onSubmit, fields, defaultValues }: InputFormProps) {
     const FormSchema = z.object(
         Object.fromEntries(
             fields.map(fieldItem => [fieldItem.label, fieldItem.zod(z)])
@@ -39,7 +42,7 @@ export function InputForm({ onSubmit, fields }: InputFormProps) {
 
     const form = useForm<z.infer<typeof FormSchema>>({
         resolver: zodResolver(FormSchema),
-        defaultValues: {},
+        defaultValues: defaultValues,
     });
 
     return (
