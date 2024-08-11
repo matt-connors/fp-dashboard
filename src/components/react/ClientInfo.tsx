@@ -30,8 +30,6 @@ function ClientInfo({ data }: {
         }
     }, [data]);
 
-    console.log(data, response);
-
     if (!response) {
         return null;
     }

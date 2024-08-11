@@ -23,10 +23,10 @@ export default function Header() {
             ]} />
             <div className="flex items-center gap-5">
                 <CommandSearch data={[
-                    { title: 'Clients', slug: '/clients' },
-                    { title: 'Exercises', slug: '/exercises' },
-                    { title: 'Programs', slug: '/programs' },
-                    { title: 'Dashboard', slug: '/' }
+                    { title: 'Clients', slug: '/trainer/clients' },
+                    { title: 'Exercises', slug: '/trainer/exercises' },
+                    { title: 'Programs', slug: '/trainer/programs' },
+                    { title: 'Dashboard', slug: '/trainer/' }
                 ]} />
                 <AccountDropdown />
             </div>
