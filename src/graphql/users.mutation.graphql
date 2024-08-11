@@ -10,6 +10,12 @@ mutation removeExerciseFromProgram($programId:Int!, $exerciseId:Int!) {
   }
 }
 
+mutation addExerciseToProgram($programId:Int!, $exerciseId:Int!) {
+  addExercise(programId: $programId, exerciseId: $exerciseId) {
+    id
+  }
+}
+
 mutation updateProgramExercise($programId: Int!, $exerciseId: Int!, $sets: Int, $reps: Int, $notes: String) {
   updateProgramExercise(
     programId: $programId

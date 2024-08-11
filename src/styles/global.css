@@ -715,6 +715,11 @@ body {
   margin-right: -0.25rem;
 }
 
+.mx-4 {
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+
 .mx-auto {
   margin-left: auto;
   margin-right: auto;
@@ -859,6 +864,10 @@ body {
 
 .max-h-\[300px\] {
   max-height: 300px;
+}
+
+.max-h-\[80vh\] {
+  max-height: 80vh;
 }
 
 .max-h-screen {
@@ -1137,6 +1146,10 @@ body {
 
 .overflow-x-hidden {
   overflow-x: hidden;
+}
+
+.overflow-y-scroll {
+  overflow-y: scroll;
 }
 
 .whitespace-nowrap {

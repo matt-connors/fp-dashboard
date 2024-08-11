@@ -21,7 +21,7 @@ export const client = createClient({
         retryExchange(options),
         fetchExchange
     ],
-    suspense: true,
+    suspense: true
 });
 
 /**

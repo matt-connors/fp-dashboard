@@ -101,7 +101,7 @@ const columns: ColumnDef<ProgramExercise>[] = [
              */
             const deleteExerciseFromProgram = async () => {
                 const response = await getMutationData(RemoveExerciseFromProgramDocument, {
-                    programId,
+                    programId: parseInt(programId),
                     exerciseId: parseInt(row.original.exercise.id),
                 });
                 if (response) {
@@ -109,6 +109,7 @@ const columns: ColumnDef<ProgramExercise>[] = [
                         title: "Exercise Deleted",
                         description: "The exercise has been removed from the program.",
                     });
+                    window.location.reload();
                 }
             }
 
@@ -152,7 +153,7 @@ const columns: ColumnDef<ProgramExercise>[] = [
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align="end">
                             <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                            <DropdownMenuItem onClick={deleteExerciseFromProgram}>Delete Exercise</DropdownMenuItem>
+                            <DropdownMenuItem onClick={deleteExerciseFromProgram}>Remove Exercise</DropdownMenuItem>
                         </DropdownMenuContent>
                     </DropdownMenu>
                 </div>
@@ -161,19 +162,18 @@ const columns: ColumnDef<ProgramExercise>[] = [
     },
 ]
 
-export function EditProgramTable({ data }: { data: { exercises: ProgramExercise[] } }) {
+export function EditProgramTable({ data }: { data: any }) {
 
-    const [response, setResponse] = useState<any>();
 
-    useEffect(() => {
-        if (data) {
-            setResponse(data);
-        }
-    }, [data]);
+    if (!data) {
+        return null;
+    }
+
+    console.log('TABLE DATA', data);
 
     return (
         <SortableTable
-            data={response}
+            data={data}
             columns={columns}
             filter={{
                 title: "exercises",

@@ -113,7 +113,7 @@ const columns: ColumnDef<Exercise>[] = [
     },
 ]
 
-function ExercisesTable({ data }: { data: { exercises: Exercise[] } }) {
+function ExercisesTable({ data, actions }: { data: { exercises?: Exercise[] }, actions: any }) {
 
     const [response, setResponse] = useState<any>();
 
@@ -122,6 +122,11 @@ function ExercisesTable({ data }: { data: { exercises: Exercise[] } }) {
             setResponse(data.exercises);
         }
     }, [data]);
+
+    if (actions) {
+        // update the actions column
+        columns.at(-1)!.cell = actions;
+    }
 
     return (
         <SortableTable

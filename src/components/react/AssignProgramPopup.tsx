@@ -29,7 +29,7 @@ export function AssignProgramPopup({ data, programId }: {
             setResponse(
                 data.trainerWithClients.users.map(client => ({
                     title: `${client.firstName} ${client.lastName}`,
-                    slug: `/assign/${client.id}:${programId}`
+                    slug: `/assign-program/${programId}/${client.id}`
                 }))
             );
         }

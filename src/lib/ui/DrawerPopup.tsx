@@ -13,21 +13,21 @@ import { Button } from "@/components/ui/button"
 
 import React from "react"
 
-export function DrawerPopup() {
+export function DrawerPopup({ title, description, button, children }: { title: string, description: string, button: React.ReactNode, children: React.ReactNode }) {
     return (
         <Drawer>
             <DrawerTrigger asChild>
-                <Button variant="outline">Open Drawer</Button>
+                {button}
             </DrawerTrigger>
-            <DrawerContent>
-                <div className="mx-auto w-full max-w-sm">
+            <DrawerContent className="mx-4">
+                <div className="max-w-[85rem] mx-auto w-full px-8">
                     <DrawerHeader>
-                        <DrawerTitle>Move Goal</DrawerTitle>
-                        <DrawerDescription>Set your daily activity goal.</DrawerDescription>
+                        <DrawerTitle>{title}</DrawerTitle>
+                        <DrawerDescription>{description}</DrawerDescription>
                     </DrawerHeader>
                 </div>
-                <div className="p-4 pb-0">
-                    ihhd
+                <div className="p-8 max-h-[80vh] overflow-y-scroll max-w-[85rem] mx-auto w-full">
+                    {children}
                 </div>
             </DrawerContent>
         </Drawer>

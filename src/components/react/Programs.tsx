@@ -50,7 +50,7 @@ export function Programs() {
                 { title: "Program Library", content: <ProgramsLibrary /> },
             ]}
             buttons={(
-                <Button size="sm" className="h-7 gap-1">
+                <Button size="sm" className="h-7 gap-1" onClick={() => window.location.assign("/trainer/programs/edit")}>
                     <span className="sr-only sm:not-sr-only sm:whitespace-nowrap text-sm">
                         Create Program
                     </span>
