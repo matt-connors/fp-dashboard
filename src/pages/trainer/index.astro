@@ -1,4 +1,5 @@
 ---
+import Dashboard from "@/src/components/react/Dashboard";
 import DashboardLayout from "@/src/layouts/dashboard.astro";
 
 import { PageHeading } from "@/src/lib/ui/PageHeading";
@@ -15,5 +16,9 @@ const description = "A list of clients";
         client:load
         client:only="react"
     />
-    
+    <Dashboard
+        title="Dashboard"
+        client:load
+        client:only="react"
+    />
 </DashboardLayout>
